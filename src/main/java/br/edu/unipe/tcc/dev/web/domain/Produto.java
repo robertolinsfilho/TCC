@@ -1,9 +1,11 @@
 package br.edu.unipe.tcc.dev.web.domain;
 
 import java.time.LocalDate;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
 public class Produto {
-	
+	@Id
 	private Long id;
 	private String nome;
 	private String marca;

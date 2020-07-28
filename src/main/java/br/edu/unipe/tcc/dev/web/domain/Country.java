@@ -101,6 +101,4 @@ public class Country {
     public int hashCode() {
         return Objects.hash(id, nome, sigla, codigoOnu, dataCriacao, dataAlteracao);
     }
-
-
 }

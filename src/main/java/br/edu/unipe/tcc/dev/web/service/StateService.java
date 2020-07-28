@@ -30,7 +30,7 @@ public class StateService {
     public List<State> getStateByCountry(String country) { return stateRepository.findStateByCountry("country");
     }
 
-        public List<State> getState() {
+    public List<State> getState() {
         return stateRepository.findAll();
     }
 
