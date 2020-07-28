@@ -8,25 +8,32 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "pais")
-public class Country {
+@Table(name = "cidades")
+public class City {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID_PAIS")
+    @Column(name="ID_CIDADE")
     private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_ESTADO")
+    private State state;
+
+
     @NotBlank
-    @Column(name="NOM_PAIS",nullable = false, length = 100)
+    @Column(name="NOM_CIDADE",nullable = false, length = 200)
     private String nome;
+
+    @NotBlank
+    @Column(name="COD_CIDADE_IBGE",nullable = false)
+    private long codigoEstado;
+
 
     @NotBlank
     @Column(name="SIGLA",nullable = false, length = 50)
     private String sigla;
-
-    @NotBlank
-    @Column(name="COD_ONU",nullable = false, length = 50)
-    private String codigoOnu;
 
     @NotBlank
     @CreationTimestamp
@@ -44,6 +51,14 @@ public class Country {
         this.id = id;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -52,20 +67,20 @@ public class Country {
         this.nome = nome;
     }
 
+    public long getCodigoEstado() {
+        return codigoEstado;
+    }
+
+    public void setCodigoEstado(long codigoEstado) {
+        this.codigoEstado = codigoEstado;
+    }
+
     public String getSigla() {
         return sigla;
     }
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
-    }
-
-    public String getCodigoOnu() {
-        return codigoOnu;
-    }
-
-    public void setCodigoOnu(String codigoOnu) {
-        this.codigoOnu = codigoOnu;
     }
 
     public Timestamp getDataCriacao() {
@@ -88,19 +103,18 @@ public class Country {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Country country = (Country) o;
-        return id == country.id &&
-                Objects.equals(nome, country.nome) &&
-                Objects.equals(sigla, country.sigla) &&
-                Objects.equals(codigoOnu, country.codigoOnu) &&
-                Objects.equals(dataCriacao, country.dataCriacao) &&
-                Objects.equals(dataAlteracao, country.dataAlteracao);
+        City city = (City) o;
+        return id == city.id &&
+                codigoEstado == city.codigoEstado &&
+                Objects.equals(state, city.state) &&
+                Objects.equals(nome, city.nome) &&
+                Objects.equals(sigla, city.sigla) &&
+                Objects.equals(dataCriacao, city.dataCriacao) &&
+                Objects.equals(dataAlteracao, city.dataAlteracao);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, sigla, codigoOnu, dataCriacao, dataAlteracao);
+        return Objects.hash(id, state, nome, codigoEstado, sigla, dataCriacao, dataAlteracao);
     }
-
-
 }
